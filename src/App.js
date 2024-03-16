@@ -1,25 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import {useState} from 'react';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [userInput, setUserInput] = useState('');
+    const [output, setOutput] = useState('');
+    const [charactersCount, setCharactersCount] = useState(0);
+
+    const changeHandler = (event) => {
+        const input = event.target.value;
+        setUserInput(input);
+        setCharactersCount(input.length);
+        setOutput(btoa(input));
+    };
+
+    return (
+        <div className='container'>
+            <h1 className="text-center">useState example</h1>
+            <p className="text-center">Enter text and generate base64 encoded value.</p>
+            <div className="main-container">
+                <div className="input-container">
+                    <textarea
+                        className='input-textarea'
+                        value={userInput}
+                        rows={10}
+                        onChange={changeHandler}
+                    />
+                    <p>Char {charactersCount}</p>
+                </div>
+                <div className="output-container">
+                    <pre className='output'>{output}</pre>
+                </div>
+            </div>
+        </div>
+    );
 }
 
 export default App;
